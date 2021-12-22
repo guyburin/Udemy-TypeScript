@@ -1,44 +1,14 @@
-// const person: {
-//   name: string;
-//   age: number;
-// } = {
-// const person: {
-//   name: string;
-//   age: number;
-//   hobbies: string[];
-//   role: [number, string];
-// } = {
-//   name: "Guy",
-//   age: 23,
-//   hobbies: ["game", "sports"],
-//   role: [2, "author"],
-// };
-// person.role.push("admin");
-// person.role[1] = 10; error !
-// person.role = [0, "admin", "user"];
-// const admin = 0;
-// const read_only = 1;
-// const author = 2;
-var Role;
-(function (Role) {
-    Role["admin"] = "admin";
-    Role[Role["read_only"] = 100] = "read_only";
-    Role["author"] = "author";
-})(Role || (Role = {}));
-var person = {
-    name: "Guy",
-    age: 23,
-    hobbies: ["game", "sports"],
-    role: Role.admin
-};
-var favoriteActivity;
-favoriteActivity = ["sports"];
-console.log(person.name);
-for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
-    var hobby = _a[_i];
-    console.log(hobby.toLocaleUpperCase());
-    //   console.log(hobby.map())
+function combine(input1, input2) {
+    var result;
+    if (typeof input1 === "number" && typeof input2 === "number") {
+        result = input1 + input2;
+    }
+    else {
+        result = input1.toString() + input2.toString();
+    }
+    return result;
 }
-if (person.role === Role.author) {
-    console.log("is author");
-}
+var combinedAges = combine(30, 26);
+console.log(combinedAges);
+var combinedNames = combine("Max", "Anna");
+console.log(combinedNames);
