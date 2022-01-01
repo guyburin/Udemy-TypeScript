@@ -1,59 +1,39 @@
-const userName = "Guy";
-// userName = 'Guyburin'
-let age = 23;
-age = 24;
-var result;
-// function add(a: number, b: number) {
-//   result = a + b;
-//   return result;
-// }
+class Department {
+  // private readonly id: string;
+  // private name: string;
+  private empolyee: string[] = [];
+  constructor(private readonly id: string, public name: string) {
+    // this.name = n;
+    // this.id = id;
+  }
 
-// console.log(result);
+  describe(this: Department) {
+    console.log(`Department #${this.id}: ${this.name}`);
+  }
 
-// if (age > 20) {
-//   let isOld = true;
-// }
-// console.log(isOld);
+  addEmployee(employee: string) {
+    // this.id = "di2";
+    this.empolyee.push(employee);
+  }
 
-// const add = (a: number, b: number = 1) => a + b;
+  printEmployee() {
+    console.log(this.empolyee.length);
+    console.log(this.empolyee);
+  }
+}
 
-// // console.log(add(2, 5));
+const accounting = new Department("1", "Accounting");
 
-// const printOutput: (output: string | number) => void = (output) =>
-//   console.log(output);
+accounting.addEmployee("guy");
+accounting.addEmployee("burin");
 
-// const button = document.querySelector("button");
+// accounting.empolyee[2] = "panchat";
 
-// if (button) {
-//   button.addEventListener("click", (event) => console.log(event));
-// }
+accounting.describe();
+accounting.printEmployee();
 
-// printOutput(add(2));
+console.log(accounting);
 
-const hobbies = ["games", "sports"];
-const activityHobbies = ["running"];
+const accountingCoppy = { name: "accounting2", describe: accounting.describe };
 
-activityHobbies.push(...hobbies);
-
-const person = {
-  nickName: "guy",
-  ages: 23,
-};
-
-const coppyPerson = { ...person };
-
-const add = (...numbers: number[]) => {
-  numbers.reduce((value, sum) => {
-    return value + sum;
-  }, 0);
-};
-
-const addNumber = add(5, 2, 3, 4.4);
-console.log(addNumber);
-
-const [hobbie1, hobbie2, ...otherHobbies] = hobbies;
-console.log(hobbie1, hobbie2);
-
-const { nickName: userNames, ages } = person;
-
-console.log(userNames, ages);
+accountingCoppy.describe;
