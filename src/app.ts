@@ -1,59 +1,138 @@
-const userName = "Guy";
-// userName = 'Guyburin'
-let age = 23;
-age = 24;
-var result;
-// function add(a: number, b: number) {
-//   result = a + b;
-//   return result;
-// }
-
-// console.log(result);
-
-// if (age > 20) {
-//   let isOld = true;
-// }
-// console.log(isOld);
-
-// const add = (a: number, b: number = 1) => a + b;
-
-// // console.log(add(2, 5));
-
-// const printOutput: (output: string | number) => void = (output) =>
-//   console.log(output);
-
-// const button = document.querySelector("button");
-
-// if (button) {
-//   button.addEventListener("click", (event) => console.log(event));
-// }
-
-// printOutput(add(2));
-
-const hobbies = ["games", "sports"];
-const activityHobbies = ["running"];
-
-activityHobbies.push(...hobbies);
-
-const person = {
-  nickName: "guy",
-  ages: 23,
+type Admin = {
+  name: string;
+  privileges: string[];
 };
 
-const coppyPerson = { ...person };
-
-const add = (...numbers: number[]) => {
-  numbers.reduce((value, sum) => {
-    return value + sum;
-  }, 0);
+type Employee = {
+  name: string;
+  startDate: Date;
 };
 
-const addNumber = add(5, 2, 3, 4.4);
-console.log(addNumber);
+// interface ElevatedEmployee extends Admin, Employee {}
+type ElevatedEmployee = Admin & Employee;
 
-const [hobbie1, hobbie2, ...otherHobbies] = hobbies;
-console.log(hobbie1, hobbie2);
+const e1: ElevatedEmployee = {
+  name: "guy",
+  privileges: ["dev"],
+  startDate: new Date(),
+};
+type Combinable = string | number;
+type Numeric = number | boolean;
+type Universal = Combinable & Numeric;
 
-const { nickName: userNames, ages } = person;
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: string, b: number): string;
+function add(a: number, b: string): string;
+function add(a: Combinable, b: Combinable) {
+  if (typeof a === "string" || typeof b === "string") {
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
 
-console.log(userNames, ages);
+const result = add("guy", "burin");
+result.split(" ");
+
+const fetchedUserData = {
+  id: "1",
+  name: "guy",
+  job: { title: "dev", discription: "I am Developer" },
+};
+
+console.log(fetchedUserData?.job?.title);
+const userInput = undefined;
+
+const storeData = userInput ?? "Default";
+console.log(storeData);
+
+// type UnknowEmployee = Employee | Admin;
+
+// function printEmployeeInformation(emp: UnknowEmployee) {
+//   console.log(`Name : ${emp.name}`);
+//   if ("privileges" in emp) {
+//     console.log(`Privileges: ${emp.privileges}`);
+//   }
+//   if ("startDate" in emp) {
+//     console.log(`Start Date : ${emp.startDate}`);
+//   }
+// }
+
+// printEmployeeInformation({ name: "Tom", startDate: new Date() });
+
+// class Car {
+//   drive() {
+//     console.log("Deiving a Car...");
+//   }
+
+//   loadCargo(amount: number) {
+//     console.log(`Loading cargo ... ${amount}`);
+//   }
+// }
+
+// class Truck {
+//   drive() {
+//     console.log("Deiving a truck...");
+//   }
+
+//   loadCargo(amount: number) {
+//     console.log(`Loading cargo ... ${amount}`);
+//   }
+// }
+
+// type Vehicle = Car | Truck;
+// const v1 = new Car();
+// const v2 = new Truck();
+
+// function useVehicle(vehicle: Vehicle) {
+//   vehicle.drive();
+//   if (vehicle instanceof Truck) {
+//     vehicle.loadCargo(1000);
+//   }
+// }
+
+// useVehicle(v1);
+// useVehicle(v2);
+
+// interface Bird {
+//   type: "bird";
+//   flyingSpeed: number;
+// }
+
+// interface Horse {
+//   type: "horse";
+//   runningSpeed: number;
+// }
+
+// type Animal = Bird | Horse;
+
+// function moveAnimal(animal: Animal) {
+//   let speed;
+//   switch (animal.type) {
+//     case "bird":
+//       speed = animal.flyingSpeed;
+//       break;
+//     case "horse":
+//       speed = animal.runningSpeed;
+//   }
+//   console.log(`Moving Speed is : ${speed}`);
+// }
+
+// moveAnimal({ type: "bird", flyingSpeed: 15 });
+
+// // const userInput = <HTMLInputElement>document.getElementById("messageOutput")!;
+// // const userInput = document.getElementById("messageOutput") as HTMLInputElement;
+// const userInput = document.getElementById("messageOutput");
+
+// if (userInput) {
+//   (userInput as HTMLInputElement).value = "Hi Guy!";
+// }
+
+// interface ErrorContainer {
+//   [prop: string]: string;
+// }
+
+// const errorBug: ErrorContainer = {
+//   email: "not valid email",
+//   username: "Start with Charactor",
+// };
