@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 const userName = "Guy";
 // userName = 'Guyburin'
 let age = 23;
@@ -57,3 +58,48 @@ console.log(hobbie1, hobbie2);
 const { nickName: userNames, ages } = person;
 
 console.log(userNames, ages);
+=======
+// const names: Array<string> = []; //string[]
+// // names[0].split("");
+
+// const promise: Promise<any> = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve(10);
+//   }, 2000);
+// });
+
+// promise.then((data) => {
+//   // data.split('')
+// });
+
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
+}
+
+const mergeObj = merge<{ name: string; hobbies: string[] }, { age: number }>(
+  { name: "guy", hobbies: ["Games"] },
+  { age: 23 }
+);
+console.log(mergeObj);
+
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = "No value!";
+  if (element.length === 1) {
+    descriptionText = "can 1 element!";
+  } else {
+    descriptionText = `Got ${element.length} elements.`;
+  }
+  return [element, descriptionText];
+}
+
+console.log(countAndDescribe(["gams", "sport"]));
+
+function extractAndConvert<T extends object, u extends keyof T>(
+  obj: T,
+  key: U
+) {}
+>>>>>>> Stashed changes
