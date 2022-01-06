@@ -124,6 +124,6 @@ itAccounting.printEmployee();
 
 console.log(itAccounting);
 
-const accountingCoppy = { name: "accounting2", describe: accounting.describe };
+// const accountingCoppy = { name: "accounting2", describe: accounting.describe };
 
-accountingCoppy.describe;
+// accountingCoppy.describe;

@@ -1,0 +1,8 @@
+
+====== Access Modifiers
+
+Modifiers  |	Class	|  Package  | Sub class  |	World
+public	   |     Yes	|    Yes	|     Yes	 |   Yes  ให้หมด
+protected  |     Yes    |    Yes	|     Yes    |   No   แม่ลูกแก้ได้
+no modifier|	 Yes 	|    Yes    |	  No     |   No   แม่ กับ Package
+private	   |     Yes    |	 No     |	  No     |	 No   แม่เท่านั้น
