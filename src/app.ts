@@ -1,3 +1,43 @@
+// --------------------------nullish coalescing
+// let age: number = 0;
+
+// // if (age) {
+// //     console.log("treu");
+// // }else{
+// //     console.log("false");
+// // }
+// let ageOR: number = age || 23;
+// let ageNull: number = age ?? 23;
+
+// console.log(ageOR, ageNull);
+
+// --------------------------Optional Chaining
+
+// const person = {
+//   name: "guy",
+//   age: 23 ,
+// //   job: { title: "dev", discription: "I am Developer" },
+// };
+
+// console.log(person?.job?.title);
+
+//--------------------------Function Overloads
+// type strNum = string | number;
+// function add(a: number, b: number): number;
+// function add(a: string, b: string): string;
+// function add(a: string, b: number): string;
+// function add(a: number, b: string): string;
+// function add(a: strNum, b: strNum) {
+//   if (typeof a === "string" || typeof b === "string") {
+//     return a.toString() + b.toString();
+//   }
+//   return a + b;
+// }
+
+// const resault = add(1,1)
+// console.log(resault)
+
+//---------------------- Intersection Types
 type Admin = {
   name: string;
   privileges: string[];
@@ -8,131 +48,67 @@ type Employee = {
   startDate: Date;
 };
 
-// interface ElevatedEmployee extends Admin, Employee {}
+// interface ElevatedEmployee extends Admin, Employee {} ถ้า Admin, Employee เป็น interface
 type ElevatedEmployee = Admin & Employee;
-
+// type ElevatedEmployee = Admin & Employee  e1 {name: string,privileges: string[],startDate:Date};
 const e1: ElevatedEmployee = {
   name: "guy",
   privileges: ["dev"],
   startDate: new Date(),
 };
-type Combinable = string | number;
-type Numeric = number | boolean;
-type Universal = Combinable & Numeric;
 
-function add(a: number, b: number): number;
-function add(a: string, b: string): string;
-function add(a: string, b: number): string;
-function add(a: number, b: string): string;
-function add(a: Combinable, b: Combinable) {
-  if (typeof a === "string" || typeof b === "string") {
-    return a.toString() + b.toString();
+type Combinables = string | number;
+type Numerics = number | boolean;
+type Universals = Combinables & Numerics; // type Universals = number เพราะ Combinables กับ Numerics มี number เหมือนกัน
+
+//--------------------------------------------- type guard
+type UnknowEmployee = Employee | Admin;
+
+function printEmployeeInformation(emp: UnknowEmployee) {
+  console.log(`Name : ${emp.name}`);
+  if ("privileges" in emp) { // ใช้ type emp === "Admin"
+    console.log(`Privileges: ${emp.privileges}`);
   }
-  return a + b;
+  if ("startDate" in emp) {// ใช้ type emp === "Employee"
+    console.log(`Start Date : ${emp.startDate}`);
+  }
 }
 
-const result = add("guy", "burin");
-result.split(" ");
+printEmployeeInformation({ name: "Tom", startDate: new Date() });
+// e1 จะออกทั้ง  privileges และ startDate เพราะ e1 มีข้อมูลที่เป็น type ElevatedEmployee = Admin & Employee;
 
-const fetchedUserData = {
-  id: "1",
-  name: "guy",
-  job: { title: "dev", discription: "I am Developer" },
-};
+//---------------------------- type guard
+class Car {
+  drive() {
+    console.log("Deiving a Car...");
+  }
 
-console.log(fetchedUserData?.job?.title);
-const userInput = undefined;
+  loadCargo(amount: number) {
+    console.log(`Loading cargo ... ${amount}`);
+  }
+}
 
-const storeData = userInput ?? "Default";
-console.log(storeData);
+class Truck {
+  drive() {
+    console.log("Deiving a truck...");
+  }
 
-// type UnknowEmployee = Employee | Admin;
+  loadCargo(amount: number) {
+    console.log(`Loading cargo ... ${amount}`);
+  }
+}
 
-// function printEmployeeInformation(emp: UnknowEmployee) {
-//   console.log(`Name : ${emp.name}`);
-//   if ("privileges" in emp) {
-//     console.log(`Privileges: ${emp.privileges}`);
-//   }
-//   if ("startDate" in emp) {
-//     console.log(`Start Date : ${emp.startDate}`);
-//   }
-// }
+type Vehicle = Car | Truck;
+const v1 = new Car();
+const v2 = new Truck();
 
-// printEmployeeInformation({ name: "Tom", startDate: new Date() });
+function useVehicle(vehicle: Vehicle) {
+  vehicle.drive();
+  if (vehicle instanceof Truck) {
+    vehicle.loadCargo(1000);
+  }
+}
 
-// class Car {
-//   drive() {
-//     console.log("Deiving a Car...");
-//   }
-
-//   loadCargo(amount: number) {
-//     console.log(`Loading cargo ... ${amount}`);
-//   }
-// }
-
-// class Truck {
-//   drive() {
-//     console.log("Deiving a truck...");
-//   }
-
-//   loadCargo(amount: number) {
-//     console.log(`Loading cargo ... ${amount}`);
-//   }
-// }
-
-// type Vehicle = Car | Truck;
-// const v1 = new Car();
-// const v2 = new Truck();
-
-// function useVehicle(vehicle: Vehicle) {
-//   vehicle.drive();
-//   if (vehicle instanceof Truck) {
-//     vehicle.loadCargo(1000);
-//   }
-// }
-
-// useVehicle(v1);
-// useVehicle(v2);
-
-// interface Bird {
-//   type: "bird";
-//   flyingSpeed: number;
-// }
-
-// interface Horse {
-//   type: "horse";
-//   runningSpeed: number;
-// }
-
-// type Animal = Bird | Horse;
-
-// function moveAnimal(animal: Animal) {
-//   let speed;
-//   switch (animal.type) {
-//     case "bird":
-//       speed = animal.flyingSpeed;
-//       break;
-//     case "horse":
-//       speed = animal.runningSpeed;
-//   }
-//   console.log(`Moving Speed is : ${speed}`);
-// }
-
-// moveAnimal({ type: "bird", flyingSpeed: 15 });
-
-// // const userInput = <HTMLInputElement>document.getElementById("messageOutput")!;
-// // const userInput = document.getElementById("messageOutput") as HTMLInputElement;
-// const userInput = document.getElementById("messageOutput");
-
-// if (userInput) {
-//   (userInput as HTMLInputElement).value = "Hi Guy!";
-// }
-
-// interface ErrorContainer {
-//   [prop: string]: string;
-// }
-
-// const errorBug: ErrorContainer = {
-//   email: "not valid email",
-//   username: "Start with Charactor",
-// };
+useVehicle(v1);
+useVehicle(v2);
+console.log(v2 instanceof Truck)
