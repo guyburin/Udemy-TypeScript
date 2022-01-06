@@ -1,0 +1,4 @@
+Type Guards
+-Nullable
+-typeof
+-instanceof
